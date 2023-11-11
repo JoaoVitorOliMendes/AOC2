@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>CISC</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body class="bg-dark">
+    <div class="container-fluid p-3">
+        <div class="d-flex align-items-center justify-content-center">
+            <div class="row w-100">
+                <div class="col-6">
+                    <div class="form-floating">
+                        <form action="" id="cmdForm">
+                            <div class="input-group w-100">
+                                <div class="form-floating">
+                                    <input class="form-control" placeholder="Comandos" id="commands"></textarea>
+                                    <label for="commands">Comandos</label>
+                                </div>
+                                <button class="btn btn-outline-secondary" type="submit">Enter</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="table-responsive mt-3">
+                        <table class="table table-dark table-striped table-hover">
+                            <thead class="table-secondary">
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Conteudo</th>
+                                <th scope="col">Delete</th>
+                              </tr>
+                            </thead>
+                            <tbody id="tableCmd">
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row w-100">
+                        <div class="col-6">
+                            <table class="table table-dark table-striped table-hover">
+                                <thead class="table-secondary">
+                                  <tr>
+                                    <th scope="col">Registrador</th>
+                                    <th scope="col">Valor</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">R0</th>
+                                        <td><input type="text" class="form-control" value="0" disabled></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">R1</th>
+                                        <td><input type="text" class="form-control" value="0" disabled></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">R2</th>
+                                        <td><input type="text" class="form-control" value="0" disabled></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">R3</th>
+                                        <td><input type="text" class="form-control" value="0" disabled></td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                        <div class="col-3">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">ABus</span>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" value="0" disabled>
+                                  <label for="floatingInputGroup1">ABus</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">BBus</span>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" value="0" disabled>
+                                  <label for="floatingInputGroup1">BBus</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-floating">
+                        <textarea class="form-control" id="console" style="height: 750px;"></textarea>
+                        <label for="console">Assembly</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src='main.js'></script>
+</body>
+</html>
