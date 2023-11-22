@@ -6,7 +6,7 @@ txtConsole = document.getElementById('console');
 btnExecute = document.getElementById('btnExecute');
 btnSubmit = document.getElementById('btnSubmit');
 
-registerBank = [document.getElementById('reg0'), document.getElementById('reg1'), document.getElementById('reg2'), document.getElementById('reg3'), document.getElementById('reg4'), document.getElementById('reg5')]
+registerBank = [document.getElementById('reg0'), document.getElementById('reg1'), document.getElementById('reg2'), document.getElementById('reg3'), document.getElementById('reg4'), document.getElementById('reg5'), document.getElementById('reg6')]
 
 function deleteClick(e) {
     parentChild = e.target.parentNode.parentNode.children
@@ -192,11 +192,19 @@ cmdForm.addEventListener('submit', (e) => {
     cmdArray = document.getElementsByName('cmd')
     for (let i=0;i<cmdArray.length;i++) {
         const key = cmdArray.item(i)
-        if (key.value == '') {
-            key.value = txtCommands.value
+        if (key.value == '' && txtCommands.value) {
+            
+            arrayInstrucao = txtCommands.value.toUpperCase().split(' ')
+            let binary = convertAssemblyToBinary(arrayInstrucao)
+            console.log(binary);
+            
+            if (binary != null) {
+                key.value = binary.toString().replaceAll(',', '')
+            }
             break;
         }
     }
+    
     e.preventDefault();
 });
 
@@ -245,19 +253,20 @@ for (i of registerBank) {
     i.value='∅'
 }
 
-startCmds = [
-    "1111000000001000",
-    "0000000110001000",
-    "0100010110001001",
-    "0110000010010101",
-    "1111111000000001",
-    "1111000001111011"
-]
+// startCmds = [
+//     "1111000000001000",
+//     "0000000110001000",
+//     "0100010110001001",
+//     "0110000010010101",
+//     "1111111000000001",
+//     "1111000001111011"
+// ]
 
-for (let i = 0; i < startCmds.length; i++) {
-    cmdArray = document.getElementsByName('cmd')
-    cmdArray[i].value = startCmds[i]
-}
+// for (let i = 0; i < startCmds.length; i++) {
+//     cmdArray = document.getElementsByName('cmd')
+//     cmdArray[i].value = startCmds[i]
+// }
+
 /*
 SIMPLE FOR
 1111000000001000
@@ -267,3 +276,72 @@ SIMPLE FOR
 1111111000000001
 1111000001111011
 */
+
+function convertAssemblyToBinary(code) {
+    let outputedBinaryCode = []
+    let binary = getBinaryFromAssembly(code[0], code.length)
+    if (binary != null) {
+        outputedBinaryCode.push(binary)
+        for(let i = 1; i < code.length; i++){
+            let binaryNum = convertTextToBinary(code[i])
+            if (binaryNum != null) {
+                outputedBinaryCode.push(binaryNum)
+            } else {
+                return null
+            }
+        }
+        return outputedBinaryCode
+    }
+    return null
+}
+
+function getBinaryFromAssembly(code, lengthPos){
+    if (lengthPos == 4){
+        obj = {
+            "ADD": "0000",
+            "SUB": "0001",
+            "MLT": "0010",
+            "DIV": "0011",
+            "SLT": "0100",
+            "SGT": "0101",
+            "BNE": "0110",
+        }
+    } else if (lengthPos == 3){
+        obj = {
+            "MOV": "11110000"
+        }
+    } else if (lengthPos == 2){
+        obj = {
+            "JMP": "111111100000"
+        }
+    } else if (lengthPos == 1){
+        obj = {
+            "HALT": "111111111111"
+        }
+    }
+    
+    if (obj[code] == undefined) {
+        window.alert('Comando Inexistente')
+        return null
+    }
+    return obj[code]
+}
+
+
+function convertTextToBinary(code) {
+    let outputedBinaryCode = []
+    let bitReg = 0
+    let bits = code
+
+    if (code[0] == 'R') {
+        bits = code.substring(1)
+        bitReg = 1
+        if (registerBank[parseInt(bits)] == undefined) {
+            window.alert("Registrador Inexistente")
+            return null
+        }
+    }
+    let idxJMP = parseInt(bits || 0).toString(2)
+    outputedBinaryCode.push("0".repeat(3-idxJMP.length) + idxJMP)
+    return bitReg + outputedBinaryCode
+}
